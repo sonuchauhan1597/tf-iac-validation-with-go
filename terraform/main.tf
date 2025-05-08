@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"  # Use the latest stable version
+    }
+  }
+}
+
 provider "aws" {
   region                      = var.aws_region
   access_key                  = var.use_localstack ? "test" : null
@@ -16,6 +25,24 @@ provider "aws" {
 
 }
 
+
 resource "aws_s3_bucket" "sample_bucket" {
-  bucket = var.bucket_name
+  bucket        = var.bucket_name
+  force_destroy = false  # Explicitly set default value
+}
+
+resource "aws_s3_bucket_versioning" "sample_bucket" {
+  bucket = aws_s3_bucket.sample_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "sample_bucket" {
+  bucket = aws_s3_bucket.sample_bucket.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
