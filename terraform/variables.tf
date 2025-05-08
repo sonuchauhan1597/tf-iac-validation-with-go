@@ -10,5 +10,5 @@ variable "aws_region" {
 
 variable "bucket_name" {
   type    = string
-  default = "my-localstack-bucket"
+  default = "demo-localstack-bucket"
 }
