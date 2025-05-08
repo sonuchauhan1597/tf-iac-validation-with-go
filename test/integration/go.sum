@@ -1,0 +1,2 @@
+cd test/integration
+go mod tidy
