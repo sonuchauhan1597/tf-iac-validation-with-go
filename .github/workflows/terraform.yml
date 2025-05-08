@@ -59,13 +59,13 @@ jobs:
       # Step: Terraform plan
       - name: Terraform plan
         id: plan
-        run: terraform -chdir=terraform plan -no-color -input=false -out=plan.out
+        run: terraform -chdir=terraform plan -no-color -input=false
 
       # Step: Terraform apply
       - name: Terraform apply
         run: |
               export TF_LOG=DEBUG
-              terraform -chdir=terraform apply -auto-approve plan.out
+              terraform -chdir=terraform apply -auto-approve
 
       # Step: Run Terratest integration tests
       - name: Run integration tests
