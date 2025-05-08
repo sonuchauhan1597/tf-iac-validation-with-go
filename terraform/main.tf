@@ -7,6 +7,8 @@ provider "aws" {
   endpoints {
     s3       = var.use_localstack ? "http://localhost:4566" : null
     dynamodb = var.use_localstack ? "http://localhost:4566" : null
+    sts      = var.use_localstack ? "http://localhost:4566" : null
+    iam      = var.use_localstack ? "http://localhost:4566" : null
     # Add other endpoints as needed
   }
 }
