@@ -72,10 +72,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.LOCALSTACK_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION:            ${{ secrets.LOCALSTACK_AWS_REGION }}
       - name: Terraform init
-        run: terraform init -input=false \
-               -backend-config="bucket=${{ secrets.BUCKET_TF_STATE }}" \
-               -backend-config="key=terraform.tfstate" \
-               -backend-config="region=${{ secrets.LOCALSTACK_AWS_REGION }}"
+        id: init
+        run: terraform init
       - name: Terraform plan
         id: plan
         run: terraform plan -no-color -input=false -out=plan.out
@@ -99,10 +97,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.LOCALSTACK_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION:            ${{ secrets.LOCALSTACK_AWS_REGION }}
       - name: Terraform init (apply)
-        run: terraform init -input=false \
-               -backend-config="bucket=${{ secrets.BUCKET_TF_STATE }}" \
-               -backend-config="key=terraform.tfstate" \
-               -backend-config="region=${{ secrets.LOCALSTACK_AWS_REGION }}"
+        run: terraform init
       - name: Terraform apply
         run: terraform apply -auto-approve plan.out
 
