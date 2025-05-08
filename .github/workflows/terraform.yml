@@ -63,7 +63,7 @@ jobs:
 
       # Step: Terraform apply
       - name: Terraform apply
-        run: terraform -chdir=terraform apply  -input=false -auto-approve plan.out
+        run: terraform -chdir=terraform apply plan.out -auto-approve
 
       # Step: Run Terratest integration tests
       - name: Run integration tests
