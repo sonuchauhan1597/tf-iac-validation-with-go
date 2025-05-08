@@ -21,6 +21,7 @@ provider "aws" {
     sts      = var.use_localstack ? "http://localhost:4566" : null
     iam      = var.use_localstack ? "http://localhost:4566" : null
     # Add other endpoints as needed
+    
   }
 
 }
